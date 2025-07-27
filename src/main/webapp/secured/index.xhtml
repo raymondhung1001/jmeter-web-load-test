@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Custom styles -->
+    <style type="text/css">
+        .header-section {
+            background-color: #f8f9fa;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .list-section {
+            margin-bottom: 2rem;
+        }
+        .list-container {
+            max-width: 800px;
+        }
+        .logout-btn {
+            margin-left: 1rem;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Header with welcome message and logout button -->
+    <h:panelGroup layout="block" styleClass="header-section">
+        <h:panelGroup layout="block" styleClass="container d-flex justify-content-between align-items-center">
+            <h3>Welcome, #{session.getAttribute('user')}</h3>
+            <h:form>
+                <h:commandButton action="#{loginView.logout}" value="Logout"
+                                 styleClass="btn btn-outline-danger logout-btn"/>
+            </h:form>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <h:form id="exampleForm">
+        <h:panelGroup layout="block" styleClass="container list-container">
+            <h:panelGroup layout="block" styleClass="list-section">
+                <h4 class="mb-3">List of User</h4>
+                <h:commandButton styleClass="btn btn-primary mb-3" value="Get All Users" action="#{exampleMainView.test}" process="@this" update="@form"/>
+                <h:panelGroup layout="block" styleClass="card" rendered="#{not empty exampleMainView.users}">
+                    <h:panelGroup layout="block" styleClass="card-body">
+                        <h:panelGroup styleClass="list-group list-group-flush">
+                            <ui:repeat value="#{exampleMainView.users}" var="user">
+                                <h:panelGroup styleClass="list-group-item d-flex justify-content-between align-items-center">
+                                    #{user.username}
+                                    <h:outputText styleClass="badge bg-primary rounded-pill" value="#{user.fullName}"/>
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{empty exampleMainView.users}">
+                    No users found. Click the "Get All Users" button to retrieve users.
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:form>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>

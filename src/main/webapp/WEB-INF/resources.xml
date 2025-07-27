@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <Resource id="jsfAppDS" type="DataSource">
+        JdbcDriver = org.h2.Driver
+        JdbcUrl = jdbc:h2:./data/jsfdb;AUTO_SERVER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;INIT=RUNSCRIPT FROM 'classpath:/sql/schema.sql'\\;RUNSCRIPT FROM 'classpath:/sql/data.sql'
+        UserName = sa
+        Password =
+        JtaManaged = true
+        ValidationQuery = SELECT 1
+    </Resource>
+</resources>
